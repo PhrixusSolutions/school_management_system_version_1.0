@@ -8,12 +8,14 @@ package gui.teacher;
 import Controller.AcademicStaffController;
 import Controller.AchievementController;
 import Controller.ClassRoomController;
+import Controller.EnrollmentController;
 import Controller.SocietyController;
 import Controller.StudentController;
 import Controller.SubjectController;
 import Model.AcademicMember;
 import Model.Achievement;
 import Model.ClassRoom;
+import Model.Marks;
 import Model.Society;
 import Model.Student;
 import Model.Subject;
@@ -38,6 +40,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -135,7 +139,7 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
     public void setTextUpdateMarks_Tab(ArrayList<Subject> subjectList, ArrayList<Student> studentList, ClassRoom classRoom){
         Select_Grade_ComboBox1.setSelectedItem(Integer.toString(classRoom.getGradeId()));
         Select_Class_ComboBox2.setSelectedIndex(classRoom.getClassId());
-        setStudentMarkEnter_Table_UpdateTab(studentList);
+        setStudentMarkEnter_Table_UpdateTab(studentList); //set student name list in table
         // setting up combo box
         int count = 0;
         String subject;
@@ -841,29 +845,35 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
 
     private void Change_image_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Change_image_BtnActionPerformed
    //teacher Profile View Tab
-        BufferedImage image = null;
-        if(teacher_View_FileChooser.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
-            //get selected file path
-            File imagefile = teacher_View_FileChooser.getSelectedFile();
-            try { 
-                image = ImageIO.read(imagefile);
-            } catch (IOException ex) {
-                Logger.getLogger(Teacher_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+       FileFilter filter = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg"); // ONly jpg,jpge files filter and open
+         teacher_View_FileChooser.setFileFilter(filter);
+         try {
+            if(teacher_View_FileChooser.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
+                //get selected file path
+                File imagefile = teacher_View_FileChooser.getSelectedFile();
+                String getImagePAth = teacher_View_FileChooser.getSelectedFile().getPath();
+                ImageIcon icon=  new ImageIcon(getImagePAth);
+              //  BufferedImage dimg = (BufferedImage) image.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), image.SCALE_SMOOTH);
+                Teacher_image_Label.setIcon(icon);
+            }else {
+                            JOptionPane.showMessageDialog(null, "Feel Free to Look Later");
             }
-            BufferedImage dimg = (BufferedImage) image.getScaledInstance(Teacher_image_Label.getWidth(), Teacher_image_Label.getHeight(), image.SCALE_SMOOTH);
-            Teacher_image_Label.setIcon(new ImageIcon(dimg));
+        } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
         }
     }//GEN-LAST:event_Change_image_BtnActionPerformed
 
     private void update_marks_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_marks_btnActionPerformed
         int currantRow =0;
-        ArrayList<TermTestResult> studentMarks = new ArrayList<>();
+        ArrayList<Marks> studentMarks = new ArrayList<>();
         while (student_Mark_enter_table.getRowCount() <= currantRow){
-            studentMarks.get(currantRow).setStudent_id((int) student_Mark_enter_table.getValueAt(currantRow, 0));
-            studentMarks.get(currantRow).setTerm((int)Select_term_ComboBox.getSelectedItem());
-            studentMarks.get(currantRow).setMarks((int)student_Mark_enter_table.getValueAt(currantRow, 2));
+            studentMarks.get(currantRow).setStudent_id((int) student_Mark_enter_table.getValueAt(currantRow, 0));//student_id
+            studentMarks.get(currantRow).setTerm((int)Select_term_ComboBox.getSelectedItem());//term
+            studentMarks.get(currantRow).setMarks((int)student_Mark_enter_table.getValueAt(currantRow, 2));//marks
             Date date = new Date();
-            studentMarks.get(currantRow).setYear(date.getYear());
+            studentMarks.get(currantRow).setYear(date.getYear()); //year
+            studentMarks.get(currantRow).setSubject_id((int) Select_subject_ComboBox.getSelectedItem()); //subject_id
         }
     }//GEN-LAST:event_update_marks_btnActionPerformed
 
