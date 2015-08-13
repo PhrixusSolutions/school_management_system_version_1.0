@@ -907,7 +907,7 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Change_image_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Change_image_BtnActionPerformed
-   teacher Profile View Tab
+   //teacher Profile View Tab
         BufferedImage image = null;
         if(teacher_View_FileChooser.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
             //get selected file path
