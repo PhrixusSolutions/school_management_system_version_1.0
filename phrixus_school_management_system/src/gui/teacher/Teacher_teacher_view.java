@@ -8,17 +8,20 @@ package gui.teacher;
 import Controller.AcademicStaffController;
 import Controller.AchievementController;
 import Controller.ClassRoomController;
+import Controller.EnrollmentController;
 import Controller.SocietyController;
 import Controller.StudentController;
 import Controller.SubjectController;
 import Model.AcademicMember;
 import Model.Achievement;
 import Model.ClassRoom;
+import Model.Marks;
 import Model.Society;
 import Model.Student;
 import Model.Subject;
 import Model.TermTestResult;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -36,6 +39,9 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -43,6 +49,7 @@ import javax.swing.JOptionPane;
  * @author Lahiru Sandeepa
  */
 public class Teacher_teacher_view extends javax.swing.JInternalFrame {
+    JPanel achive_panel;
     
     /**
      * Creates new form teacher
@@ -132,7 +139,7 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
     public void setTextUpdateMarks_Tab(ArrayList<Subject> subjectList, ArrayList<Student> studentList, ClassRoom classRoom){
         Select_Grade_ComboBox1.setSelectedItem(Integer.toString(classRoom.getGradeId()));
         Select_Class_ComboBox2.setSelectedIndex(classRoom.getClassId());
-        setStudentMarkEnter_Table_UpdateTab(studentList);
+        setStudentMarkEnter_Table_UpdateTab(studentList); //set student name list in table
         // setting up combo box
         int count = 0;
         String subject;
@@ -152,28 +159,45 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
     }
     
     private void setTextStudentApproval_Tab(ArrayList<Achievement> AchievementList, ArrayList<Society> Achievement_SocietyList, ArrayList<Student> studentimageList){
+        /*
+        In this ethord basically i set achivement Details of each students related to this teacher, i get achivement list related with this teacher
+        and All the student List and society list.
+        then while loop, each achiement, identify student fro studentList and society list and get relavent details about that student to show 
+        in achievement panel
+        */
+        
+        setAchivement_Layout(AchievementList.size());// set new panel to display all achiement panels (methord)
+
         int index_counter = 0;
         while(AchievementList.isEmpty()){
-            Achivement_Discription_TextArea.setText(AchievementList.get(index_counter).getAchievement());
+            Achivement_panal newAchivemt = new Achivement_panal(); // create new panel for achievment
+            newAchivemt.setAchivement(AchievementList.get(index_counter)); //set Achivemnt to panel as local variable
+            newAchivemt.setDiscription(AchievementList.get(index_counter).getAchievement());// set achivemtent discription in panel Text Area
         
             int index_counter_student = 0;
             // find the correct student name, image and society name from ArrayList of them....
             while(studentimageList.isEmpty()){
                 // find student details
                 if(AchievementList.get(index_counter).getAchieverId()== studentimageList.get(index_counter_student).getStudentId()){
-                    studentName_SAA_Label.setText(studentimageList.get(index_counter_student).getFullName());
-                    studentImage_Label.setIcon((Icon) studentimageList.get(index_counter_student).getPhotograph());
+                    newAchivemt.setStudentName(studentimageList.get(index_counter_student).getFullName());// set student name into Label
+                    newAchivemt.setstudentimage((Icon) studentimageList.get(index_counter_student).getPhotograph());
                     String Grade_Class = studentimageList.get(index_counter_student).getClassRoom().getGradeId() + " "+ studentimageList.get(index_counter_student).getClassRoom().getClassName();
-                    GradeandClass_SAA_Label.setText(Grade_Class); // grade and Class set as "10 A" / " 9 B"
+                    newAchivemt.setGrade_Class(Grade_Class); // grade and Class set as "10 A" / " 9 B"
                 }
                 // find the Society Name
                 if(AchievementList.get(index_counter).getSociety_id()== Achievement_SocietyList.get(index_counter_student).getId() ){
-                    sociey_SSA_Label.setText(Achievement_SocietyList.get(index_counter_student).getName());
+                    newAchivemt.setSocietyName(Achievement_SocietyList.get(index_counter_student).getName());// set society name
                 }
                 index_counter_student++;
             }
             index_counter++;
-        }
+        
+    }
+    }
+    private void setAchivement_Layout(int numberOf_achivements){
+        this.achive_panel = new JPanel();
+        this.achive_panel.setLayout(new GridLayout(numberOf_achivements, 0));
+        achivement_scroll_panel.setViewportView(this.achive_panel);
     }
     private void getTextStudentApproval_Tab(int student_id){
         
@@ -237,19 +261,11 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
         Text_Name_BarPanel = new javax.swing.JPanel();
         HeadLine_label = new javax.swing.JLabel();
         subHeadLine_label = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        student_approval_Tab_panal = new javax.swing.JPanel();
         HeadLine_BarPanel = new javax.swing.JPanel();
         HeadLine_StudentApproval_label = new javax.swing.JLabel();
         subHeadLine_StudentApproval_label2 = new javax.swing.JLabel();
-        studentAchivement_panel = new javax.swing.JPanel();
-        studentImage_Label = new javax.swing.JLabel();
-        studentName_SAA_Label = new javax.swing.JLabel();
-        GradeandClass_SAA_Label = new javax.swing.JLabel();
-        sociey_SSA_Label = new javax.swing.JLabel();
-        Approved_button = new javax.swing.JButton();
-        NotApproved_Button = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        Achivement_Discription_TextArea = new javax.swing.JTextArea();
+        achivement_scroll_panel = new javax.swing.JScrollPane();
 
         Teacher_image_Label.setBackground(new java.awt.Color(255, 255, 255));
         Teacher_image_Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/teacher Profile.jpg"))); // NOI18N
@@ -495,7 +511,7 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
                 .addComponent(HeadLine_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(subHeadLine_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(Teacher_image_Label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Change_image_Btn)
@@ -778,7 +794,7 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
         HeadLine_BarPanelLayout.setHorizontalGroup(
             HeadLine_BarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeadLine_BarPanelLayout.createSequentialGroup()
-                .addContainerGap(590, Short.MAX_VALUE)
+                .addContainerGap(483, Short.MAX_VALUE)
                 .addGroup(HeadLine_BarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeadLine_BarPanelLayout.createSequentialGroup()
                         .addComponent(HeadLine_StudentApproval_label, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -796,101 +812,22 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        studentAchivement_panel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Student Achivement Box", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
-
-        studentImage_Label.setBackground(new java.awt.Color(102, 102, 102));
-        studentImage_Label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        studentImage_Label.setText("Student Image");
-        studentImage_Label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        studentName_SAA_Label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        studentName_SAA_Label.setText("Student Name");
-
-        GradeandClass_SAA_Label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        GradeandClass_SAA_Label.setText("Grade and Class");
-
-        sociey_SSA_Label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        sociey_SSA_Label.setText("Society Name");
-
-        Approved_button.setText("Approved");
-        Approved_button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Approved_buttonActionPerformed(evt);
-            }
-        });
-
-        NotApproved_Button.setText("Not Approved");
-
-        Achivement_Discription_TextArea.setEditable(false);
-        Achivement_Discription_TextArea.setColumns(20);
-        Achivement_Discription_TextArea.setRows(5);
-        Achivement_Discription_TextArea.setText("Achivement Discription");
-        jScrollPane5.setViewportView(Achivement_Discription_TextArea);
-
-        javax.swing.GroupLayout studentAchivement_panelLayout = new javax.swing.GroupLayout(studentAchivement_panel);
-        studentAchivement_panel.setLayout(studentAchivement_panelLayout);
-        studentAchivement_panelLayout.setHorizontalGroup(
-            studentAchivement_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(studentAchivement_panelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(studentImage_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addGroup(studentAchivement_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(studentAchivement_panelLayout.createSequentialGroup()
-                        .addGroup(studentAchivement_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(studentAchivement_panelLayout.createSequentialGroup()
-                                .addComponent(studentName_SAA_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(GradeandClass_SAA_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(sociey_SSA_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(studentAchivement_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(NotApproved_Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Approved_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(92, 92, 92))
-                    .addGroup(studentAchivement_panelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        studentAchivement_panelLayout.setVerticalGroup(
-            studentAchivement_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(studentAchivement_panelLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(studentAchivement_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(studentAchivement_panelLayout.createSequentialGroup()
-                        .addGroup(studentAchivement_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(studentName_SAA_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GradeandClass_SAA_Label))
-                        .addGap(8, 8, 8)
-                        .addComponent(sociey_SSA_Label)
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(studentImage_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(studentAchivement_panelLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(Approved_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(NotApproved_Button)))
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(studentAchivement_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout student_approval_Tab_panalLayout = new javax.swing.GroupLayout(student_approval_Tab_panal);
+        student_approval_Tab_panal.setLayout(student_approval_Tab_panalLayout);
+        student_approval_Tab_panalLayout.setHorizontalGroup(
+            student_approval_Tab_panalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(HeadLine_BarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(achivement_scroll_panel)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        student_approval_Tab_panalLayout.setVerticalGroup(
+            student_approval_Tab_panalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(student_approval_Tab_panalLayout.createSequentialGroup()
                 .addComponent(HeadLine_BarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(studentAchivement_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 261, Short.MAX_VALUE))
+                .addComponent(achivement_scroll_panel, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
         );
 
-        Teacher_Tab_pane.addTab("Student Approvals", jPanel1);
+        Teacher_Tab_pane.addTab("Student Approvals", student_approval_Tab_panal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -908,6 +845,7 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
 
     private void Change_image_BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Change_image_BtnActionPerformed
    //teacher Profile View Tab
+//<<<<<<< HEAD
         BufferedImage image = null;
         if(teacher_View_FileChooser.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
             //get selected file path
@@ -916,21 +854,39 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
                 image = ImageIO.read(imagefile);
             } catch (IOException ex) {
                 Logger.getLogger(Teacher_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+//=======
+       FileFilter filter = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg"); // ONly jpg,jpge files filter and open
+         teacher_View_FileChooser.setFileFilter(filter);
+         try {
+            if(teacher_View_FileChooser.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
+                //get selected file path
+                imagefile = teacher_View_FileChooser.getSelectedFile();
+                String getImagePAth = teacher_View_FileChooser.getSelectedFile().getPath();
+                ImageIcon icon=  new ImageIcon(getImagePAth);
+              //  BufferedImage dimg = (BufferedImage) image.getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), image.SCALE_SMOOTH);
+                Teacher_image_Label.setIcon(icon);
+            }else {
+                            JOptionPane.showMessageDialog(null, "Feel Free to Look Later");
+//>>>>>>> origin/master
             }
-            BufferedImage dimg = (BufferedImage) image.getScaledInstance(Teacher_image_Label.getWidth(), Teacher_image_Label.getHeight(), image.SCALE_SMOOTH);
-            Teacher_image_Label.setIcon(new ImageIcon(dimg));
+        } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+        }
+            }
         }
     }//GEN-LAST:event_Change_image_BtnActionPerformed
 
     private void update_marks_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update_marks_btnActionPerformed
         int currantRow =0;
-        ArrayList<TermTestResult> studentMarks = new ArrayList<>();
+        ArrayList<Marks> studentMarks = new ArrayList<>();
         while (student_Mark_enter_table.getRowCount() <= currantRow){
-            studentMarks.get(currantRow).setStudent_id((int) student_Mark_enter_table.getValueAt(currantRow, 0));
-            studentMarks.get(currantRow).setTerm((int)Select_term_ComboBox.getSelectedItem());
-            studentMarks.get(currantRow).setMarks((int)student_Mark_enter_table.getValueAt(currantRow, 2));
+            studentMarks.get(currantRow).setStudent_id((int) student_Mark_enter_table.getValueAt(currantRow, 0));//student_id
+            studentMarks.get(currantRow).setTerm((int)Select_term_ComboBox.getSelectedItem());//term
+            studentMarks.get(currantRow).setMarks((int)student_Mark_enter_table.getValueAt(currantRow, 2));//marks
             Date date = new Date();
-            studentMarks.get(currantRow).setYear(date.getYear());
+            studentMarks.get(currantRow).setYear(date.getYear()); //year
+            studentMarks.get(currantRow).setSubject_id((int) Select_subject_ComboBox.getSelectedItem()); //subject_id
         }
     }//GEN-LAST:event_update_marks_btnActionPerformed
 
@@ -989,20 +945,13 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null,"You didn't enter Exam term correctly. please choose again", "Choose Exam term   ", JOptionPane.ERROR_MESSAGE);
             }    }//GEN-LAST:event_Select_term_ComboBoxActionPerformed
 
-    private void Approved_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Approved_buttonActionPerformed
-   
-    }//GEN-LAST:event_Approved_buttonActionPerformed
-
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea Achivement_Discription_TextArea;
-    private javax.swing.JButton Approved_button;
     private javax.swing.JLabel Birthday_Label;
     private javax.swing.JButton Change_image_Btn;
     private javax.swing.JComboBox Day_ComboBox;
     private javax.swing.JLabel Extra_label;
-    private javax.swing.JLabel GradeandClass_SAA_Label;
     private javax.swing.JPanel HeadLine_BarPanel;
     private javax.swing.JLabel HeadLine_StudentApproval_label;
     private javax.swing.JLabel HeadLine_label;
@@ -1016,7 +965,6 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox Month_ComboBox;
     private javax.swing.JTextField NIC_number_TextField;
     private javax.swing.JButton New_subject_Btn;
-    private javax.swing.JButton NotApproved_Button;
     private javax.swing.JLabel Position_Label;
     private javax.swing.JTextField Position_TextField;
     private javax.swing.JTextField Register_number_TextField;
@@ -1042,23 +990,19 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
     private javax.swing.JPanel Text_Name_BarPanel;
     private javax.swing.JPanel Update_marks_Selecting_panal;
     private javax.swing.JComboBox Year_comboBox;
+    private javax.swing.JScrollPane achivement_scroll_panel;
     private javax.swing.JLabel email_Label1;
     private javax.swing.JTextField email_TextField1;
     private javax.swing.JTextArea extra_TextArea1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel sociey_SSA_Label;
-    private javax.swing.JPanel studentAchivement_panel;
-    private javax.swing.JLabel studentImage_Label;
-    private javax.swing.JLabel studentName_SAA_Label;
     private javax.swing.JTable student_Mark_enter_table;
+    private javax.swing.JPanel student_approval_Tab_panal;
     private javax.swing.JLabel subHeadLine_StudentApproval_label2;
     private javax.swing.JLabel subHeadLine_label;
     private javax.swing.JLabel subHeadLine_label1;
