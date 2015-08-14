@@ -32,5 +32,15 @@ public class SubjectController {
         }
         return subjectList;
     }
+        //Hashini Galappaththi
+        //get subject name list for each teacher
+        public static ArrayList<Subject> getSubjectForTeacher(int teacher_id){
+        ArrayList<Subject> ListOfSubjects=new ArrayList<>();
+        
+        //get subjects'id from TeacherSubjectCoontroller
+        
+        
+        return ListOfSubjects;
+        }
 
 }
