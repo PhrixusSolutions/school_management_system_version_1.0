@@ -11,6 +11,7 @@ import Model.Student;
 import Model.Subject;
 import db.DB_Connection;
 import db.DB_Handler;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,9 +22,10 @@ import java.util.ArrayList;
  * @author Lahiru Sandeepa
  */
 public class AcademicStaffController {
-   static private int teacher_id;
+   
    //Lahiru Sandeepa
    public static AcademicMember searchTeacherById(int memberID) throws ClassNotFoundException, SQLException {
+         int teacher_id;
         teacher_id = memberID;
         AcademicMember teacher =null;
         Connection connection=DB_Connection.getDBConnection().getConnection();
@@ -47,6 +49,32 @@ public class AcademicStaffController {
       
         
    }
+   //Hashini Galappaththi
+   //get peticular teacher's detail to show to  student
+   public static AcademicMember get_teachers_detail(int Student_id) throws SQLException, ClassNotFoundException{
+   
+   AcademicMember academicMember=null;
+   //get class id
+   int class_id=StudentController.getStudentClassRoom(Student_id);
+   //get teacher's id
+   int teachers_id=ClassRoomController.get_Classteachers_Id(class_id);
+   
+   //get teachers detatil
+   Connection connection=DB_Connection.getDBConnection().getConnection();
+   String sql="SELECT * FROM academic_staff_member WHERE member_id='"+Integer.toString(teachers_id)+"';";
+   ResultSet resultSet=DB_Handler.getData(connection, sql);
+   if(resultSet.next()){
+   
+        academicMember = new AcademicMember(resultSet.getInt("member id"),resultSet.getString("name"),resultSet.getString("address"),resultSet.getInt("telephone"),resultSet.getInt("mobile")
+               ,resultSet.getString("Rank"), (InputStream) resultSet.getBlob("Photograph"),resultSet.getString("email"),resultSet.getString("nic"),resultSet.getDate("birthday"));
+ 
+   }
+   
+   
+   return academicMember;
+   
+   }
+           
 
 
 }

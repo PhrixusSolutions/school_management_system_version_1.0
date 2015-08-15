@@ -51,6 +51,18 @@ public class ClassRoomController {
         }
         return classRoom;
     }
-
+      //Hahsini Galappaththi to get class teacher's id of peticular class
+    public static int get_Classteachers_Id(int class_id) throws ClassNotFoundException, SQLException{
+    
+    int teachers_id=0;
+    
+          Connection connection=DB_Connection.getDBConnection().getConnection();
+          String sql="SELECT class_teacher_id FROM classroom WHERE class_id="+class_id+"';";
+          ResultSet resultSet=DB_Handler.getData(connection, sql);
+          teachers_id=resultSet.getInt("class_teacher_id");
+          
+    
+    return teachers_id;
+    }
     
 }
