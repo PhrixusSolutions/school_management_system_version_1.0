@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
@@ -110,5 +111,19 @@ public class StudentController {
     return classId;
     
     }
+    
+    //@Yasiru
+    public static void SaveStudent(Student student) throws ClassNotFoundException, SQLException {
+        
+        Connection connection=DB_Connection.getDBConnection().getConnection();
+        //String sql="INSERT INTO phrixus_db.student (student_id, full_name, permanent_address, residence_address, telephone, birthday, current_class_id, house) VALUES ('2', 'nimal', 'Yehiya road,Matara', 'Katubedda,Moratuwa', '9373728929', '1992-10-22', '3', 'Olu')";
+        String sql="INSERT INTO phrixus_db.student (student_id, full_name, permanent_address, residence_address, telephone, birthday, current_class_id, house) VALUES (Student.getStudentId(), Student.getFullName(), Student.getPermenantAddress(), Student.getResidenceAddress(), Student.getTelephoneNo(), Student.getBirthday(), Student.getClassRoom(), Student.getHouse())";
+        
+        
+        
+        
+    }
+    
+    
     
 }

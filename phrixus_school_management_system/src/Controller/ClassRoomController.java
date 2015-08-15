@@ -59,10 +59,26 @@ public class ClassRoomController {
           Connection connection=DB_Connection.getDBConnection().getConnection();
           String sql="SELECT class_teacher_id FROM classroom WHERE class_id="+class_id+"';";
           ResultSet resultSet=DB_Handler.getData(connection, sql);
+          
           teachers_id=resultSet.getInt("class_teacher_id");
           
     
     return teachers_id;
+    }
+    
+    //@Yasiru
+    public static ClassRoom get_Class_Id(int Grade,String Class) throws ClassNotFoundException, SQLException{
+    ClassRoom classRoom=null; 
+    
+          Connection connection=DB_Connection.getDBConnection().getConnection();
+          String sql="SELECT class_id FROM classroom WHERE Grade='"+Grade+"'and Class='"+Class+"' ;"; // classid='232' 
+          ResultSet resultSet=DB_Handler.getData(connection, sql);
+          if(resultSet.next()){
+              int class_id=resultSet.getInt("class_id");
+              classRoom=new ClassRoom(class_id, Class, Grade);
+              
+          }
+    return classRoom;
     }
     
 }
