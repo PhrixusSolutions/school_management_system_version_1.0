@@ -6,6 +6,7 @@
 package gui.teacher;
 
 import Model.Achievement;
+import java.awt.Color;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -63,6 +64,8 @@ public class Achivement_panal extends javax.swing.JPanel {
         Achive_student_name = new javax.swing.JLabel();
         Achive_GradeAndClass = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         achivement_student_image_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         achivement_student_image_label.setText("<html>Student Image</html>");
         achivement_student_image_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -92,7 +95,7 @@ public class Achivement_panal extends javax.swing.JPanel {
 
         Achive_NOT_approved_btn.setBackground(new java.awt.Color(255, 255, 255));
         Achive_NOT_approved_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/wrongs.jpg"))); // NOI18N
-        Achive_NOT_approved_btn.setText("Not Approved   ");
+        Achive_NOT_approved_btn.setText("Decline");
         Achive_NOT_approved_btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Achive_NOT_approved_btnActionPerformed(evt);
@@ -172,7 +175,7 @@ public class Achivement_panal extends javax.swing.JPanel {
 
     private void Achive_Approved_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Achive_Approved_btnActionPerformed
         achivement.setStatus(1);
-        
+        this.setBackground(Color.GREEN);
     }//GEN-LAST:event_Achive_Approved_btnActionPerformed
 
     private void Achive_NOT_approved_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Achive_NOT_approved_btnActionPerformed

@@ -15,6 +15,7 @@ public class TeacherSubjectController {
     //Hashini Galappaththi
     //get subjects of peticular teacher
     public static void getSubjects(int teacher_id){
+        //return list of subject ids
         
     }
     

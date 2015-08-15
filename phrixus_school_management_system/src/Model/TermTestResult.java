@@ -22,6 +22,7 @@ public class TermTestResult {
     public void setTerm(int term) {
         this.term = term;
     }
+    
 
     public int getStudent_id() {
         return student_id;
