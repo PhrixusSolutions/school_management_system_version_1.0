@@ -6,6 +6,7 @@
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Controller/StudentController.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Controller/A_LevelController.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Model/ClassRoom.java</file>
+            <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Controller/EnrollmentController.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Controller/TeacherSubjectController.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/gui/teacher/teacher_student_view.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/db/DB_Handler.java</file>
@@ -13,6 +14,7 @@
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Model/A_Level_Result.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Controller/ClassRoomController.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/gui/Login.java</file>
+            <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/gui/mainSoftwareFrame.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Model/Enrollment.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/gui/student/Student_main_page.java</file>
             <file>file:/F:/Phrixus/version1.0/school_management_system_version_1.0/phrixus_school_management_system/src/Model/Subject.java</file>
