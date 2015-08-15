@@ -6,6 +6,7 @@
 
 package gui;
 
+import Model.User;
 import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import java.awt.Color;
 import java.util.logging.Level;
@@ -21,14 +22,14 @@ import javax.swing.plaf.synth.SynthLookAndFeel;
  * @author Lahiru Sandeepa
  */
 public class mainSoftwareFrame extends javax.swing.JFrame {
-
+    public static User user=null;
     /**
      * Creates new form mainSoftwareFrame
      */
     public mainSoftwareFrame() {
         initComponents();
         this.getContentPane().setBackground(new Color(51, 0, 51));
-        setExtendedState(MAXIMIZED_BOTH);
+        setExtendedState(MAXIMIZED_BOTH);       
        
     }
 
@@ -47,6 +48,7 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         Main_Destop_pane = new javax.swing.JDesktopPane();
+        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -140,11 +142,17 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Main_Destop_pane)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(430, 430, 430))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
+                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Main_Destop_pane))
@@ -155,7 +163,7 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        //dateChooserCombo1.get
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -187,30 +195,28 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(new WindowsLookAndFeel());
-                    new mainSoftwareFrame().setVisible(true);
-                } catch (UnsupportedLookAndFeelException ex) {
-                    Logger.getLogger(mainSoftwareFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    UIManager.setLookAndFeel(new WindowsLookAndFeel());
+//                    new mainSoftwareFrame().setVisible(true);
+//                } catch (UnsupportedLookAndFeelException ex) {
+//                    Logger.getLogger(mainSoftwareFrame.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Main_Destop_pane;
+    private datechooser.beans.DateChooserCombo dateChooserCombo1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

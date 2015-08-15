@@ -5,25 +5,47 @@
  */
 package gui;
 
+import Controller.UserController;
+import Model.User;
+import com.sun.glass.events.KeyEvent;
+import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import java.awt.Color;
 import java.awt.Frame;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *
  * @author hp pc
  */
 public class Login extends javax.swing.JFrame {
-
+    private Vector<String> listSomeString = new Vector<String>();
+    
     /**
      * Creates new form Login
      */
-    public Login() {
+    public Login() {        
         initComponents();
         setLocationRelativeTo(null);
-        passwordTxt.setOpaque(false);
+        
+        //passwordTxt.setOpaque(false);
         passwordTxt.setBackground(new Color(0, 0, 0,0));
-        userNameTxt.setOpaque(false);
+        //userNameTxt.setOpaque(false);
         userNameTxt.setBackground(new Color(0, 0, 0,0));
+        setFocusable(true);
+        ((JLabel)typeCombo.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        invalidLbl.setVisible(false);
+        typeCombo.getEditor().getEditorComponent().setBackground(Color.RED);
+        ((JTextField) typeCombo.getEditor().getEditorComponent()).setBackground(Color.YELLOW);   
+        
         
     }
 
@@ -36,6 +58,8 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        typeCombo = new javax.swing.JComboBox();
+        invalidLbl = new javax.swing.JLabel();
         passwordTxt = new javax.swing.JPasswordField();
         userNameTxt = new javax.swing.JTextField();
         closeLabel = new javax.swing.JLabel();
@@ -47,10 +71,32 @@ public class Login extends javax.swing.JFrame {
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 450, 475));
         setMinimumSize(new java.awt.Dimension(450, 475));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(450, 475));
         setResizable(false);
         setSize(new java.awt.Dimension(450, 475));
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        typeCombo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        typeCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Student", "Academic Staff", "Administrator" }));
+        typeCombo.setBorder(null);
+        typeCombo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                typeComboFocusGained(evt);
+            }
+        });
+        typeCombo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                typeComboKeyTyped(evt);
+            }
+        });
+        getContentPane().add(typeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(133, 313, 179, 28));
+
+        invalidLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Invalid_user.png"))); // NOI18N
+        getContentPane().add(invalidLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 38, 449, 67));
 
         passwordTxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         passwordTxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -64,12 +110,18 @@ public class Login extends javax.swing.JFrame {
                 passwordTxtFocusLost(evt);
             }
         });
+        passwordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordTxtKeyTyped(evt);
+            }
+        });
         getContentPane().add(passwordTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(98, 407, 252, 26));
 
         userNameTxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         userNameTxt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         userNameTxt.setToolTipText("");
         userNameTxt.setBorder(null);
+        userNameTxt.setNextFocusableComponent(passwordTxt);
         userNameTxt.setOpaque(false);
         userNameTxt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -82,6 +134,17 @@ public class Login extends javax.swing.JFrame {
         userNameTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userNameTxtActionPerformed(evt);
+            }
+        });
+        userNameTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                userNameTxtKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                userNameTxtKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                userNameTxtKeyTyped(evt);
             }
         });
         getContentPane().add(userNameTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 361, 252, 26));
@@ -116,6 +179,7 @@ public class Login extends javax.swing.JFrame {
 
     private void userNameTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userNameTxtFocusGained
         userNameTxt.setBackground(Color.WHITE);
+        userNameTxt.setOpaque(true);
     }//GEN-LAST:event_userNameTxtFocusGained
 
     private void userNameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameTxtActionPerformed
@@ -125,19 +189,81 @@ public class Login extends javax.swing.JFrame {
     private void userNameTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userNameTxtFocusLost
         if(userNameTxt.getText().equals("")){
             userNameTxt.setBackground(new Color(0, 0, 0,0));
+            userNameTxt.setOpaque(false);
         }
     }//GEN-LAST:event_userNameTxtFocusLost
 
     private void passwordTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordTxtFocusGained
         passwordTxt.setBackground(Color.WHITE);
+        passwordTxt.setOpaque(true);
     }//GEN-LAST:event_passwordTxtFocusGained
 
     private void passwordTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordTxtFocusLost
         if(passwordTxt.getText().equals("")){
             passwordTxt.setBackground(new Color(0, 0, 0,0));
+            passwordTxt.setOpaque(false);
         }
     }//GEN-LAST:event_passwordTxtFocusLost
 
+    private void userNameTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userNameTxtKeyTyped
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER || evt.getKeyChar()==KeyEvent.VK_DOWN){            
+            passwordTxt.requestFocus();
+        }
+    }//GEN-LAST:event_userNameTxtKeyTyped
+
+    private void passwordTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTxtKeyTyped
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){ 
+            login(userNameTxt.getText() , String.valueOf(passwordTxt.getPassword()),String.valueOf(typeCombo.getSelectedItem()));
+        }
+    }//GEN-LAST:event_passwordTxtKeyTyped
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER || evt.getKeyChar()==KeyEvent.VK_TAB){            
+            typeCombo.requestFocus();            
+        }
+    }//GEN-LAST:event_formKeyTyped
+
+    private void typeComboFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_typeComboFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_typeComboFocusGained
+
+    private void typeComboKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_typeComboKeyTyped
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER || evt.getKeyChar()==KeyEvent.VK_TAB){            
+            userNameTxt.requestFocus();            
+        }else if(evt.getKeyChar()== KeyEvent.VK_DOWN){            
+            typeCombo.showPopup();
+        }
+    }//GEN-LAST:event_typeComboKeyTyped
+
+    private void userNameTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userNameTxtKeyReleased
+        String username=userNameTxt.getText();
+        if(username.length()>0 && !Character.isDigit(evt.getKeyChar())){
+            userNameTxt.setText(username.substring(0, username.length()-1));
+        }
+    }//GEN-LAST:event_userNameTxtKeyReleased
+
+    private void userNameTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userNameTxtKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userNameTxtKeyPressed
+    public void login(String userName,String password,String type){
+        if(!userName.equals("") && !password.equals("")){
+            try {          
+                User user=new User(Integer.parseInt(userName), password, type);
+                boolean available=UserController.isUserAvailable(user);
+                if(available){
+                    new mainSoftwareFrame().setVisible(true);
+                    mainSoftwareFrame.user=user;     
+                    this.dispose();
+                }else{
+                    invalidLbl.setVisible(true);
+                }                
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Couldn't Connect with the Database. Please try again.");
+            }
+        }        
+    }
     /**
      * @param args the command line arguments
      */
@@ -149,7 +275,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -166,8 +292,21 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        UIManager.put("ComboBox.background", new ColorUIResource(Color.white));
+        UIManager.put("JTextField.background", new ColorUIResource(Color.white));
+        UIManager.put("ComboBox.selectionBackground", new ColorUIResource(new Color(128, 0, 128)));
+        UIManager.put("ComboBox.selectionForeground", new ColorUIResource(new Color(255, 255, 115)));
+                
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
+//                try {
+//                    //UIManager.setLookAndFeel(new WindowsLookAndFeel());
+//                    new Login().setVisible(true);
+//                } catch (UnsupportedLookAndFeelException ex) {
+//                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+                
                 new Login().setVisible(true);
             }
         });
@@ -175,9 +314,11 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel closeLabel;
+    private javax.swing.JLabel invalidLbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel minimizeLabel;
     private javax.swing.JPasswordField passwordTxt;
+    private javax.swing.JComboBox typeCombo;
     private javax.swing.JTextField userNameTxt;
     // End of variables declaration//GEN-END:variables
 }
