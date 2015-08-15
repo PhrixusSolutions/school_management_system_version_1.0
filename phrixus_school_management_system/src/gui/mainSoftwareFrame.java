@@ -7,15 +7,8 @@
 package gui;
 
 import Model.User;
-import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import javax.swing.plaf.synth.SynthLookAndFeel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,12 +36,11 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        studentName = new javax.swing.JButton();
+        teacherBtn = new javax.swing.JButton();
+        timeTableBtn = new javax.swing.JButton();
+        reportsBtn = new javax.swing.JButton();
         Main_Destop_pane = new javax.swing.JDesktopPane();
-        dateChooserCombo1 = new datechooser.beans.DateChooserCombo();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -59,27 +51,42 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(51, 0, 51));
 
-        jButton1.setBackground(new java.awt.Color(51, 0, 51));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Student_btn_image.png"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        jButton1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Student_btn_image_pressed.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        studentName.setBackground(new java.awt.Color(51, 0, 51));
+        studentName.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Student_btn_image.png"))); // NOI18N
+        studentName.setContentAreaFilled(false);
+        studentName.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Student_btn_image_pressed.png"))); // NOI18N
+        studentName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                studentNameActionPerformed(evt);
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Teacher_btn_image.png"))); // NOI18N
-        jButton5.setContentAreaFilled(false);
-        jButton5.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Teacher_btn_image_pressed.png"))); // NOI18N
+        teacherBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Teacher_btn_image.png"))); // NOI18N
+        teacherBtn.setContentAreaFilled(false);
+        teacherBtn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/Teacher_btn_image_pressed.png"))); // NOI18N
+        teacherBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                teacherBtnActionPerformed(evt);
+            }
+        });
 
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/time_table_image.png"))); // NOI18N
-        jButton8.setContentAreaFilled(false);
-        jButton8.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/time_table_image_pressed.png"))); // NOI18N
+        timeTableBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/time_table_image.png"))); // NOI18N
+        timeTableBtn.setContentAreaFilled(false);
+        timeTableBtn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/time_table_image_pressed.png"))); // NOI18N
+        timeTableBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timeTableBtnActionPerformed(evt);
+            }
+        });
 
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/reports_Btn_image.png"))); // NOI18N
-        jButton9.setContentAreaFilled(false);
-        jButton9.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/reports_Btn_image_pressed.png"))); // NOI18N
+        reportsBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/reports_Btn_image.png"))); // NOI18N
+        reportsBtn.setContentAreaFilled(false);
+        reportsBtn.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/reports_Btn_image_pressed.png"))); // NOI18N
+        reportsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportsBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -91,12 +98,12 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(teacherBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(timeTableBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(studentName, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(reportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -104,13 +111,13 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(studentName, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(teacherBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(timeTableBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(reportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -142,17 +149,11 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Main_Destop_pane)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(430, 430, 430))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dateChooserCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Main_Destop_pane))
@@ -162,9 +163,63 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //dateChooserCombo1.get
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void studentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentNameActionPerformed
+        if(user!=null){
+            if(user.getType().equals("Student")){
+            //view student student view
+            }else if(user.getType().equals("Academic Staff")){
+                //view teacher student view
+            }else if(user.getType().equals("Administrator")){
+                //view clerk student view
+            }
+        }else{
+            int option=JOptionPane.showConfirmDialog(null, "Please Log In. Do you want to login now?", "Login Needed!", JOptionPane.YES_NO_OPTION);
+            if(option==JOptionPane.YES_OPTION){
+                new Login().setVisible(true);
+                this.dispose();
+            }
+        }        
+    }//GEN-LAST:event_studentNameActionPerformed
+
+    private void teacherBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherBtnActionPerformed
+        if(user!=null){
+            if(user.getType().equals("Student")){
+            //view student teacher view
+            }else if(user.getType().equals("Academic Staff")){
+                //view teacher teacher view
+            }else if(user.getType().equals("Administrator")){
+                //view clerk teacher view
+            }
+        }else{
+            int option=JOptionPane.showConfirmDialog(null, "Please Log In. Do you want to login now?", "Login Needed!", JOptionPane.YES_NO_OPTION);
+            if(option==JOptionPane.YES_OPTION){
+                new Login().setVisible(true);
+                this.dispose();
+            }
+        } 
+    }//GEN-LAST:event_teacherBtnActionPerformed
+
+    private void timeTableBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeTableBtnActionPerformed
+        if(user!=null){
+            if(user.getType().equals("Student")){
+            //view student timetable view
+            }else if(user.getType().equals("Academic Staff")){
+                //view teacher timetable view
+            }else if(user.getType().equals("Administrator")){
+                //view clerk timetable view
+            }
+        }else{
+            int option=JOptionPane.showConfirmDialog(null, "Please Log In. Do you want to login now?", "Login Needed!", JOptionPane.YES_NO_OPTION);
+            if(option==JOptionPane.YES_OPTION){
+                new Login().setVisible(true);
+                this.dispose();
+            }
+        } 
+    }//GEN-LAST:event_timeTableBtnActionPerformed
+
+    private void reportsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsBtnActionPerformed
+        //view report view
+    }//GEN-LAST:event_reportsBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,14 +264,13 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Main_Destop_pane;
-    private datechooser.beans.DateChooserCombo dateChooserCombo1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton reportsBtn;
+    private javax.swing.JButton studentName;
+    private javax.swing.JButton teacherBtn;
+    private javax.swing.JButton timeTableBtn;
     // End of variables declaration//GEN-END:variables
 }
