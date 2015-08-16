@@ -14,6 +14,11 @@ public class ClassRoom {
     private String className;// A,B,C.... String type is very much easier than char to handle
     private int gradeId;// 6/7/8/....   
     private String teacherId;
+
+    public ClassRoom(int Grade, String Class) {
+        this.className=Class;
+        this.gradeId=Grade;
+    }
     /**
      * @return the className
      */

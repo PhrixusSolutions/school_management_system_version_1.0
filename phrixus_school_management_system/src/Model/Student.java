@@ -7,8 +7,10 @@ package Model;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
+
 
 /**
  *
@@ -26,19 +28,35 @@ public class Student {
     //private int grade; // current grade 6/7/8/9/10/11/12/13 not needed here
     private ClassRoom classRoom; //1,2,3,...
     private ArrayList guardianList;
+    private String house;
 
     public Student() {
     }
 
-    public Student(int studentId, String fullName, String permenantAddress, String residenceAddress, int telephoneNo, Date birthday, InputStream photograph) {
+    public Student(int studentId ,String fullName, String permenantAddress, String residenceAddress, int telephoneNo, Date birthday, InputStream photograph,ClassRoom currentClassID,String House) {
         this.studentId = studentId;
         this.fullName = fullName;
         this.permenantAddress = permenantAddress;
         this.residenceAddress = residenceAddress;
         this.telephoneNo = telephoneNo;
         this.birthday = birthday;
-        this.photograph = photograph;        
+        this.photograph = photograph;   
+        this.house=House;
+        this.classRoom=currentClassID;
     }
+
+    public Student(int studentId,String fullName, String permenantAddress, String residenceAddress, int telephoneNo, Date birthday, InputStream photograph) {
+        this.studentId = studentId;
+        this.fullName = fullName;
+        this.permenantAddress = permenantAddress;
+        this.residenceAddress = residenceAddress;
+        this.telephoneNo = telephoneNo;
+        this.birthday = birthday;
+        this.photograph = photograph;   
+        
+    }
+    
+    
 
    
 
@@ -104,6 +122,14 @@ public class Student {
 
     public void setClassRoom(ClassRoom classRoom) {
         this.classRoom = classRoom;
+    }
+    
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
     }
 
     public ArrayList getGuardianList() {
