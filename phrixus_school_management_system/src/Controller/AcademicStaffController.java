@@ -57,11 +57,12 @@ public class AcademicStaffController {
    //get class id
    int class_id=StudentController.getStudentClassRoom(Student_id);
    //get teacher's id
+   
    int teachers_id=ClassRoomController.get_Classteachers_Id(class_id);
    
    //get teachers detatil
    Connection connection=DB_Connection.getDBConnection().getConnection();
-   String sql="SELECT * FROM academic_staff_member WHERE member_id='"+Integer.toString(teachers_id)+"';";
+   String sql="SELECT * FROM academic_staff_member WHERE member_id='"+Integer.toString(teachers_id)+"'";
    ResultSet resultSet=DB_Handler.getData(connection, sql);
    if(resultSet.next()){
    
@@ -74,7 +75,50 @@ public class AcademicStaffController {
    return academicMember;
    
    }
-           
+   //hahini Galappaththi called from student_teacher_view method:set table
+   public static ArrayList<AcademicMember> getListOfTeachers(String name) throws ClassNotFoundException, SQLException{
+   AcademicMember academicMember=null;
+   
+   ArrayList<AcademicMember> teachers=new ArrayList<>();
+   Connection connection=DB_Connection.getDBConnection().getConnection();
+   String sql="SELECT * FROM academic_staff_member WHERE name='"+name+"'";
+   ResultSet resultSet=DB_Handler.getData(connection, sql);
+   while(resultSet.next()){
+  academicMember = new AcademicMember(resultSet.getInt("member_id"),resultSet.getString("name"),resultSet.getString("address"),resultSet.getInt("telephone"),resultSet.getInt("mobile")
+               ,resultSet.getString("Rank"), (InputStream) resultSet.getBlob("Photograph"),resultSet.getString("email"),resultSet.getString("nic"),resultSet.getDate("birthday"));
+     teachers.add(academicMember);
+   }
+   
+   return teachers;
+   
+   
+   }
+   //Hashini Galappaththi cllled from student_teacher_view method:set table BY grade radio button selected
+   public static ArrayList<AcademicMember> returnListOfTeachers(String grade) throws ClassNotFoundException, SQLException{
+   
+   ArrayList<AcademicMember> teachers=new ArrayList<>();
+   ArrayList<Integer> teacher_id=TimeTableController.returnTeacherId(grade);
+   AcademicMember academicMember;
+   if(!teacher_id.isEmpty()){
+   Connection connection=DB_Connection.getDBConnection().getConnection();
+   for(int i=0;i<teacher_id.size();i++){
+   String sql="SELECT * FROM academic_staff_member WHERE member_id'"+Integer.toString(teacher_id.get(i))+"'";
+   ResultSet resultSet=DB_Handler.getData(connection, sql);
+   
+   while(resultSet.next()){
+  academicMember = new AcademicMember(resultSet.getInt("member_id"),resultSet.getString("name"),resultSet.getString("address"),resultSet.getInt("telephone"),resultSet.getInt("mobile")
+               ,resultSet.getString("Rank"), (InputStream) resultSet.getBlob("Photograph"),resultSet.getString("email"),resultSet.getString("nic"),resultSet.getDate("birthday"));
+     teachers.add(academicMember);
+   }
+           }
+   }
+   
+   
+   
+   return teachers;
+   
+   }
+  
 
 
 }

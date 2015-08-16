@@ -106,7 +106,7 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
         Telephone_TextField1.setText(Integer.toString(teacher.getTelephoneNo()));
         MobileNo_TextField2.setText(Integer.toString(teacher.getMobileNo()));
         Position_TextField.setText(teacher.getDesignation());
-        Subject_TextField.setText(teacher.getSubjects());
+       // Subject_TextField.setText(teacher.getSubjects());  Hashini
         email_TextField1.setText(teacher.getEmail());
         extra_TextArea1.setText(teacher.getExtra());
         Teacher_image_Label.setIcon((Icon) teacher.getImage());
@@ -121,7 +121,7 @@ public class Teacher_teacher_view extends javax.swing.JInternalFrame {
         teacher.setTelephoneNo(Integer.valueOf(Telephone_TextField1.getText()));
         teacher.setMobileNo(Integer.valueOf(MobileNo_TextField2.getText()));
         teacher.setDesignation( Position_TextField.getText());
-        teacher.setSubjects(Subject_TextField.getText());
+       // teacher.setSubjects(Subject_TextField.getText()); Hashini
         teacher.setExtra(extra_TextArea1.getText());
         
         setDate.setDate((int)Day_ComboBox.getSelectedItem());

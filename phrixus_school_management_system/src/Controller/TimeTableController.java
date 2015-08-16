@@ -38,5 +38,25 @@ public class TimeTableController {
         }
         return Timetable;
     }
+    //Hashini Galappaththi return teachers id for perticular grade 
+    public static ArrayList<Integer> returnTeacherId(String grade) throws ClassNotFoundException, SQLException{
+    ArrayList<Integer> teacher_Id=new ArrayList<>();
+    ArrayList<Integer>class_id=ClassRoomController.getClassRoomId(grade);
+    Connection connection=DB_Connection.getDBConnection().getConnection();
+    if(!class_id.isEmpty()){
+        for(int i=0;i<class_id.size();i++){
+    String sql="SELECT * FROM timetable WHERE class_id='"+Integer.toString(class_id.get(i))+"'";
+    ResultSet resultSet=DB_Handler.getData(connection, sql);
+    while(resultSet.next()){
+   int getTeacherId=resultSet.getInt("teacher_id");
+   teacher_Id.add(getTeacherId);
+    
+    }
+        }
+    }
+    
+    return teacher_Id;
+    
+    }
     
 }

@@ -11,6 +11,7 @@ import db.DB_Handler;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -54,15 +55,33 @@ public class ClassRoomController {
       //Hahsini Galappaththi to get class teacher's id of peticular class
     public static int get_Classteachers_Id(int class_id) throws ClassNotFoundException, SQLException{
     
-    int teachers_id=0;
+    int teachers_id=-999;
     
           Connection connection=DB_Connection.getDBConnection().getConnection();
           String sql="SELECT class_teacher_id FROM classroom WHERE class_id="+class_id+"';";
           ResultSet resultSet=DB_Handler.getData(connection, sql);
+          if(resultSet.next()){
           teachers_id=resultSet.getInt("class_teacher_id");
-          
+          }
     
     return teachers_id;
+    }
+    //Hashini Galappaththi to get class room ids using grade
+    public static ArrayList<Integer> getClassRoomId (String grade) throws ClassNotFoundException, SQLException{
+    
+    ArrayList<Integer> class_id=new ArrayList<>();
+    Connection connection=DB_Connection.getDBConnection().getConnection();
+    String sql="SELECT * FROM classroom WHERE grade_id='"+grade+"'";
+    ResultSet resultSet=DB_Handler.getData(connection, sql);
+    while(resultSet.next()){
+    int getClassId=resultSet.getInt("class_id");
+    class_id.add(getClassId);
+    
+    }
+    
+    
+    
+    return class_id;
     }
     
 }

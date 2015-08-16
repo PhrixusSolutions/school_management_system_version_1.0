@@ -99,12 +99,13 @@ public class StudentController {
    //Hashini Galappaththi to get student's class room id
     public static int getStudentClassRoom(int student_id) throws SQLException, ClassNotFoundException{
     
-    int classId;
+    int classId=-999;
     Connection connection=DB_Connection.getDBConnection().getConnection();
     String sql="SELECT current_class_id FROM student WHERE student_id='"+Integer.toString(student_id)+"';";
     ResultSet resultSet=DB_Handler.getData(connection, sql);
+    if(resultSet.next()){
     classId=resultSet.getInt("current_class_id");
-    
+    }
     
     
     return classId;

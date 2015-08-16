@@ -34,10 +34,19 @@ public class SubjectController {
     }
         //Hashini Galappaththi
         //get subject name list for each teacher
-        public static ArrayList<Subject> getSubjectForTeacher(int teacher_id){
+        public static ArrayList<Subject> getSubjectForTeacher(int teacher_id) throws ClassNotFoundException, SQLException{
         ArrayList<Subject> ListOfSubjects=new ArrayList<>();
+        ArrayList<Integer>subjects=TeacherSubjectController.getSubjects(teacher_id);
         
         //get subjects'id from TeacherSubjectCoontroller
+        Connection connection=DB_Connection.getDBConnection().getConnection();
+        //while int list is empty
+        for(int i=0;i<subjects.size();i++){
+        String sql="SELECT * FROM WHERE subject_id='"+Integer.toString(subjects.get(i))+"';";
+        ResultSet resultSet=DB_Handler.getData(connection, sql);
+        Subject newSubject=new Subject(subjects.get(i),resultSet.getString("subject_name"),resultSet.getInt("grade_id"));
+        ListOfSubjects.add(newSubject);
+        }
         
         
         return ListOfSubjects;

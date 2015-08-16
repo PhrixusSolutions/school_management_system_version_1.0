@@ -5,8 +5,14 @@
  */
 package Model;
 
+import Controller.SubjectController;
+import gui.student.Student_teacher_view;
 import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,9 +31,9 @@ public class AcademicMember {
     private InputStream image;
     private Date birthday;
     private String extra;
-    private String subjects;
+   private ArrayList<Subject> subjects;
 
-    
+   
 
 
     /**
@@ -52,6 +58,15 @@ public class AcademicMember {
             this.name = name;
             this.nic = nic;
             this.telephoneNo = telephoneNo;
+             try {
+           this.subjects=SubjectController.getSubjectForTeacher(memberId);
+       } catch (ClassNotFoundException ex) {
+            
+           Logger.getLogger(Student_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+       } catch (SQLException ex) {
+            
+           Logger.getLogger(Student_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
     public String getExtra() {
         return extra;
@@ -64,13 +79,13 @@ public class AcademicMember {
         return memberId;
     }
     
-    public String getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(String subjects) {
-        this.subjects = subjects;
-    }
+//    public String getSubjects() {
+//        return subjects;
+//    }
+//
+//    public void setSubjects(String subjects) {
+//        this.subjects = subjects;
+//    }
 
     /**
      * @param memberId the memberId to set
@@ -202,6 +217,15 @@ public class AcademicMember {
     public Date getBirthday() {
         return birthday;
     }
+     public ArrayList<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(ArrayList<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    
    
     
     
