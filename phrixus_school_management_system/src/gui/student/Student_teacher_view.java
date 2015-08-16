@@ -5,8 +5,18 @@
  */
 package gui.student;
 
+import Controller.AcademicStaffController;
+import Controller.SubjectController;
 import Model.AcademicMember;
+import Model.Subject;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -15,21 +25,41 @@ import javax.swing.Icon;
 public class Student_teacher_view extends javax.swing.JInternalFrame {
      
    int userName; 
-  AcademicMember teacher=new AcademicMember();
+  AcademicMember teacher;
+   DefaultTableModel model;
+  
+        
    
     /**
      * Creates new form Student_teacher_view
      */
-    public Student_teacher_view(int userName,AcademicMember teacher) {
+    public Student_teacher_view(int userName) {
         initComponents();
+       
+        groupButton();
+        this.jRadioButton1.setSelected(true);
         this.userName=userName;
+        model= (DefaultTableModel) jTable1.getModel();
+        
+        teacher=new AcademicMember();
+        
                           // send user name inorder to fetch the detauils of a class teacher
             // get student class room id // get teacher id 
                // return class teacher object
+       try {
+           this.teacher=AcademicStaffController.get_teachers_detail(userName);
+       } catch (SQLException ex) {
+           Logger.getLogger(Student_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+          
+           
+       } catch (ClassNotFoundException ex) {
+           Logger.getLogger(Student_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
             
-       this.teacher=teacher;
+       }
+      
        //set window
         this.Set_Window(teacher);
+        
         
     }
 
@@ -42,6 +72,9 @@ public class Student_teacher_view extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         T_ViewPrfile_ImageBox_panel = new javax.swing.JPanel();
         Teacher_image_Label = new javax.swing.JLabel();
         Home_Address_Label = new javax.swing.JLabel();
@@ -57,6 +90,15 @@ public class Student_teacher_view extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         Teacher_image_Label.setBackground(new java.awt.Color(255, 255, 255));
         Teacher_image_Label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resourses/teacher Profile.jpg"))); // NOI18N
@@ -93,91 +135,203 @@ public class Student_teacher_view extends javax.swing.JInternalFrame {
 
         jLabel1.setText("jLabel1");
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Serch for Teachers"));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jRadioButton1.setText("By Name");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton2.setText("By Subject");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setText("By Grade");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jRadioButton3)
+                .addGap(10, 10, 10)
+                .addComponent(jRadioButton2)
+                .addGap(10, 10, 10)
+                .addComponent(jRadioButton1)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jRadioButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButton3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "6", "7", "8", "9", "10", "11", "12", "13", " " }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "List of Teachers"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout T_ViewPrfile_ImageBox_panelLayout = new javax.swing.GroupLayout(T_ViewPrfile_ImageBox_panel);
         T_ViewPrfile_ImageBox_panel.setLayout(T_ViewPrfile_ImageBox_panelLayout);
         T_ViewPrfile_ImageBox_panelLayout.setHorizontalGroup(
             T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                .addGap(76, 76, 76)
                 .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(Home_Address_Label, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE))
+                        .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Subject_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(Subject_Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Subject_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Subject_Label3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
                     .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addComponent(Subject_Label1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Subject_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Home_Address_Label, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(Position_Label))
-                                .addGap(41, 41, 41)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)))
-                            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                                .addGap(54, 54, 54)
-                                .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(Subject_Label3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Subject_Label2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                                        .addGap(7, 7, 7)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(118, 118, 118)
+                                        .addComponent(Teacher_image_Label))))
                             .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                                .addGap(86, 86, 86)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(Teacher_image_Label)
-                .addGap(54, 54, 54))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jScrollPane1)
+                                .addContainerGap())))))
+            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 792, Short.MAX_VALUE))
         );
         T_ViewPrfile_ImageBox_panelLayout.setVerticalGroup(
             T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33))
+                    .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Home_Address_Label)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(Teacher_image_Label))
-                    .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                                .addGap(59, 59, 59)
-                                .addComponent(Home_Address_Label))
-                            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(22, 22, 22)
+                        .addGap(28, 28, 28)
                         .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Position_Label)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
                         .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Subject_Label)
                             .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
+                        .addGap(35, 35, 35)
                         .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Subject_Label1)
                             .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Subject_Label2)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
+                        .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(Subject_Label2))
+                            .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(jLabel7)))
+                        .addGap(26, 26, 26)
                         .addGroup(T_ViewPrfile_ImageBox_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Subject_Label3)
-                            .addComponent(jLabel8))))
-                .addContainerGap(90, Short.MAX_VALUE))
+                            .addComponent(jLabel8)))
+                    .addGroup(T_ViewPrfile_ImageBox_panelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Teacher_image_Label)))
+                .addGap(688, 688, 688))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,15 +341,127 @@ public class Student_teacher_view extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(T_ViewPrfile_ImageBox_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(32, 32, 32))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T_ViewPrfile_ImageBox_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(T_ViewPrfile_ImageBox_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+        // load values to combo box by name 
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //get selected button and performe the action
+    }//GEN-LAST:event_jButton1ActionPerformed
+ private void setTable(){
+ 
+ String button=this.getSelectedButton();
+ //by name = show suggetions while typing and show all names in the table
+ //by grade = show all names in the table 
+ //by subject = show all names in the table and show suggetions while typing
+ // once name is selected show teachers detail
+ if(button.equals("By Name")){
+     try {
+         String name=(String) jComboBox1.getSelectedItem();
+         ArrayList<AcademicMember> teachers=AcademicStaffController.getListOfTeachers(name);
+         if(!teachers.isEmpty()){
+             
+             String rowData[]=new String[1];
+             for(int i=0;i<teachers.size();i++){
+                 rowData[0]=teachers.get(i).getName();
+                 model.addRow(rowData);
+                 
+             }
+             
+             // get setected row in to main frame .write mouse clicked event for model
+
+         }} catch (ClassNotFoundException ex) {
+         Logger.getLogger(Student_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+     } catch (SQLException ex) {
+         Logger.getLogger(Student_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     
+        
+ }
+ else if(button.equals("By Grade")){
+     try {
+         String grade=(String) jComboBox1.getSelectedItem();
+         
+         //get class id form  class room controller \/
+         // get teachers_id from timetable controller
+         //get teachers name from academic controller
+         //set table
+         
+         ArrayList<AcademicMember> teachers=AcademicStaffController.returnListOfTeachers(grade);
+         if(!teachers.isEmpty()){
+             String rowData[]=new String[1];
+             for(int i=0;i<teachers.size();i++){
+                 rowData[0]=teachers.get(i).getName();
+                 model.addRow(rowData);
+                 
+                 
+             }
+             
+             
+         }   } catch (ClassNotFoundException ex) {
+         Logger.getLogger(Student_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+     } catch (SQLException ex) {
+         Logger.getLogger(Student_teacher_view.class.getName()).log(Level.SEVERE, null, ex);
+     }
+ }
+ else if(button.equals("By Subject")){
+ }
+ else{
+     
+     javax.swing.JOptionPane.showMessageDialog(null,"Please Select type");
+ }
+ 
+ 
+ }
+ private String getSelectedButton(){
+ 
+  if(jRadioButton1.isSelected()){
+  return jRadioButton1.getText();
+  }
+  else if(jRadioButton2.isSelected()){
+  
+   return jRadioButton2.getText();
+  }
+  else if(jRadioButton3.isSelected()){
+      return jRadioButton3.getText();
+    
+  }
+  else{
+  return null;
+  }
+ 
+ }
+    
+    
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        // TODO add your handling code here:
+        // load values to combo box grade
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+        // TODO add your handling code here:
+        //load value to combo box subject
+        
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
 private void Set_Window(AcademicMember teacher){
     
     this.jLabel1.setText(teacher.getName());
@@ -205,7 +471,19 @@ private void Set_Window(AcademicMember teacher){
     this.jLabel7.setText(Integer.toString(teacher.getMobileNo()));
     this.jLabel8.setText(teacher.getEmail());
     this.Teacher_image_Label.setIcon((Icon) teacher.getImage());
+    for(Subject subj : teacher.getSubjects()){
+        
+    this.jLabel5.setText(this.jLabel5.getText()+"\n"+subj.getName()+" Grade:"+Integer.toString(subj.getGrade()));
+    }
 }
+    private void groupButton(){
+    ButtonGroup bg=new ButtonGroup();
+    bg.add(jRadioButton1);
+    bg.add(jRadioButton2);
+    bg.add(jRadioButton2);
+    
+    
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -217,6 +495,11 @@ private void Set_Window(AcademicMember teacher){
     private javax.swing.JLabel Subject_Label3;
     private javax.swing.JPanel T_ViewPrfile_ImageBox_panel;
     private javax.swing.JLabel Teacher_image_Label;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -224,5 +507,12 @@ private void Set_Window(AcademicMember teacher){
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
