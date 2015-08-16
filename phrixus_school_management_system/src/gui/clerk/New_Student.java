@@ -877,6 +877,8 @@ public class New_Student extends javax.swing.JInternalFrame {
                clerk_Student.setSize(desktopPane.getSize());
                clerk_Student.setVisible(true);
         
+            
+        
          
         
         
