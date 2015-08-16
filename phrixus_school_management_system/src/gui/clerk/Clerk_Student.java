@@ -5,16 +5,17 @@
  */
 package gui.clerk;
 
+import javax.swing.JDesktopPane;
+
 /**
  *
  * @author Yasiru
  */
 public class Clerk_Student extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Clerk_Student
-     */
-    public Clerk_Student() {
+    JDesktopPane desktopPane;
+    public Clerk_Student(JDesktopPane desktopPane) {
+        this.desktopPane=desktopPane;
         initComponents();
     }
 
@@ -36,10 +37,25 @@ public class Clerk_Student extends javax.swing.JInternalFrame {
         jButton2.setText("jButton2");
 
         jButtonAdd.setText("Add new Student");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
 
         jButtonResults.setText("Results");
+        jButtonResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonResultsActionPerformed(evt);
+            }
+        });
 
         jButtonView.setText("View Student");
+        jButtonView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonViewActionPerformed(evt);
+            }
+        });
 
         jButtonAllocateStudents.setText("Allocate Students");
 
@@ -48,32 +64,52 @@ public class Clerk_Student extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addContainerGap(411, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonAllocateStudents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(79, 79, 79))
+                    .addComponent(jButtonResults, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonView, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAllocateStudents))
+                .addGap(364, 364, 364))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAdd)
-                    .addComponent(jButtonView))
-                .addGap(67, 67, 67)
+                    .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonView, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAllocateStudents)
-                    .addComponent(jButtonResults))
-                .addContainerGap(91, Short.MAX_VALUE))
+                    .addComponent(jButtonResults, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonAllocateStudents, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(188, 188, 188))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonResultsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonResultsActionPerformed
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        New_Student new_Student=new New_Student(desktopPane);
+        desktopPane.removeAll();
+        desktopPane.add(new_Student);
+        new_Student.setSize(desktopPane.getSize());
+        new_Student.setVisible(true);
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jButtonViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonViewActionPerformed
+        Search_Student search_Student=new Search_Student();
+        desktopPane.removeAll();
+        desktopPane.add(search_Student);
+        search_Student.setSize(desktopPane.getSize());
+        search_Student.setVisible(true);
+    }//GEN-LAST:event_jButtonViewActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

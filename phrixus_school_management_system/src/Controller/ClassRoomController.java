@@ -75,6 +75,7 @@ public class ClassRoomController {
           ResultSet resultSet=DB_Handler.getData(connection, sql);
           if(resultSet.next()){
               int class_id=resultSet.getInt("class_id");
+              //System.out.println(class_id);
               classRoom=new ClassRoom(class_id, Class, Grade);
               
           }

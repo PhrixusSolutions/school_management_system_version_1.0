@@ -7,6 +7,7 @@
 package gui;
 
 import Model.User;
+import gui.clerk.Clerk_Student;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -171,6 +172,11 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
                 //view teacher student view
             }else if(user.getType().equals("Administrator")){
                 //view clerk student view
+                Clerk_Student clerk_Student=new Clerk_Student(Main_Destop_pane);
+                Main_Destop_pane.removeAll();
+               Main_Destop_pane.add(clerk_Student);
+               clerk_Student.setSize(Main_Destop_pane.getSize());
+               clerk_Student.setVisible(true);
             }
         }else{
             int option=JOptionPane.showConfirmDialog(null, "Please Log In. Do you want to login now?", "Login Needed!", JOptionPane.YES_NO_OPTION);
@@ -202,6 +208,7 @@ public class mainSoftwareFrame extends javax.swing.JFrame {
     private void timeTableBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeTableBtnActionPerformed
         if(user!=null){
             if(user.getType().equals("Student")){
+                
             //view student timetable view
             }else if(user.getType().equals("Academic Staff")){
                 //view teacher timetable view

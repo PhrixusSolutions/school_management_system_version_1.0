@@ -55,7 +55,18 @@ public class Student {
         this.photograph = photograph;   
         
     }
-    
+
+    public Student(int studentId ,String fullName, String permenantAddress, String residenceAddress, int telephoneNo, Date birthday, InputStream photograph,String House) {
+        this.studentId = studentId;
+        this.fullName = fullName;
+        this.permenantAddress = permenantAddress;
+        this.residenceAddress = residenceAddress;
+        this.telephoneNo = telephoneNo;
+        this.birthday = birthday;
+        this.photograph = photograph;   
+        this.house=House;
+        
+    }
     
 
    

@@ -20,14 +20,14 @@ import java.util.Calendar;
  * @author hp pc
  */
 public class StudentController {
-
+    //@Yasiru
     public static Student searchStudentById(String studentID) throws ClassNotFoundException, SQLException {
         Student student=null;
         Connection connection=DB_Connection.getDBConnection().getConnection();
         String sql="select * from student where student_id='"+studentID+"'";
         ResultSet resultSet=DB_Handler.getData(connection,sql);
         if(resultSet.next()){
-            student=new Student(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getInt(5), resultSet.getDate(6), resultSet.getBinaryStream(7));
+            student=new Student(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getInt(5), resultSet.getDate(6), resultSet.getBinaryStream(7),resultSet.getString(8));
             student.setClassRoom(ClassRoomController.searchClassRoomByID(resultSet.getInt("current_class_id")));
         }
         return student;
